@@ -29,6 +29,7 @@ class GMMPolicy(Policy, torch.nn.Module):
                                 reg=self._reg)
 
         Policy.__init__(self, env_spec, name)
+        torch.nn.Module.__init__(self)
 
     def get_action(self, observation):
         return self.get_actions(observation[None])
