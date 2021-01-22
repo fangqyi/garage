@@ -42,6 +42,7 @@ def diayn_cheetah_hurdle(ctxt=None, seed=1):
     policy = GMMSkillPolicy(
         env_spec=env.spec,
         K=skills_num,
+        skills_num=skills_num,
         hidden_layer_sizes=[300, 300])
 
     qf1 = ContinuousMLPSkillQFunction(env_spec=env.spec,
