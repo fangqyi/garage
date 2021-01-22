@@ -22,10 +22,12 @@ class GMM():
         self._K = K
         if mlp_input_dim == None:
             self._w_and_mu_logsig_t = torch.distributions.normal.Normal(0, 0.1)
+            self._use_mlp = False
         else:
             self._w_and_mu_logsig_t = MLPModule(input_dim=mlp_input_dim,
                                                 output_dim=K * (2 * Dx + 1),
                                                 hidden_sizes=hidden_layer_sizes)
+            self._use_mlp = True
 
     def get_p_xz_params(self, input):
         K = self._K
@@ -87,8 +89,14 @@ class GMM():
 
         return log_p
 
+    @property
     def parameters(self):
-        return self._w_and_mu_logsig_t.parameters()
+        return self._w_and_mu_logsig_t.parameters() if self._use_mlp is True else None
+
+    @property
+    def networks(self):
+        return self._w_and_mu_logsig_t if self._use_mlp is True else None
+
 
 
 

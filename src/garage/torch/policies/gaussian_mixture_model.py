@@ -68,8 +68,13 @@ class GMMSkillPolicy(Policy, torch.nn.Module):
         else:
             return torch.sum(torch.log(1-torch.tanh(actions) ** 2 + EPS), dim=1)
 
+    @property
     def parameters(self, recurse=False):
         return self.distribution.parameters()
+
+    @property
+    def networks(self):
+        return self.distribution.
 
     def reset(self):
         pass
