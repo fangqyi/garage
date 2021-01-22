@@ -341,7 +341,7 @@ class DIAYN(SAC):
     def networks(self):
         return [
             self._policy if not isinstance(self._policy, GMMSkillPolicy) else
-            self._policy.networks(), self._discriminator, self._qf1, self._qf2,
+            self._policy.networks, self._discriminator, self._qf1, self._qf2,
             self._target_qf1, self._target_qf2
         ]
 
