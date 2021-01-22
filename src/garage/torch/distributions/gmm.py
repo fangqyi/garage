@@ -48,13 +48,9 @@ class GMM():
         xz_sigs_t = torch.exp(xz_log_sigs_t)
 
         # Sample the latent code
-        #print(log_ws_t)
-        #print("that's log_ws_t")
-        #print()
         z_t = torch.multinomial(torch.exp(log_ws_t), num_samples=1)  # N*1
 
         # Choose mixture component corresponding to the latent
-        print(z_t)
         mask_t = torch.eye(self._K)[z_t[:, 0]].to(tu.global_device())
         mask_t = mask_t.ge(1) # turn into boolean
         xz_mu_t = torch.masked_select(xz_mus_t, mask_t)
@@ -63,9 +59,7 @@ class GMM():
         # Sample x
         x_t = xz_mu_t + xz_sig_t * torch.normal(mean=torch.zeros((N, self._Dx)).to(tu.global_device()),
                                                 std=1.0)
-        print()
-        print(x_t)
-        print()
+
         if not self._reparameterize:
             x_t = x_t.detach().cpu().numpy()
 
