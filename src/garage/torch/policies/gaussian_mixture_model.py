@@ -54,6 +54,9 @@ class GMMPolicy(Policy, torch.nn.Module):
     def parameters(self, recurse=False):
         return self.distribution.parameters()
 
+    def reset(self):
+        pass
+
 
 
 
