@@ -22,7 +22,7 @@ class GMMPolicy(Policy):
         assert not reparameterize
         self._reparameterize = reparameterize
 
-        self.distribution = GMM(K=self.K,
+        self.distribution = GMM(K=self._K,
                                 hidden_layer_sizes=self._hidden_layers,
                                 Dx=self._Da,
                                 mlp_input_dim=self._Ds,
