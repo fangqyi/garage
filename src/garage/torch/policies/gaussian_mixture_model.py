@@ -41,7 +41,7 @@ class GMMSkillPolicy(Policy, torch.nn.Module):
 
     def forward(self, observations, skills):
         if not isinstance(observations, torch.Tensor):
-            states = torch.from_numpy(observations).float().to(
+            observations = torch.from_numpy(observations).float().to(
                 tu.global_device())
             if len(observations.shape) == 1:
                 observations = observations.unsqueeze(0)
