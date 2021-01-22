@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 
 import garage.torch.utils as tu
 from garage.torch.distributions.gmm import GMM
@@ -55,7 +56,7 @@ class GMMSkillPolicy(Policy, torch.nn.Module):
         log_p_x_t, reg_loss_t, x_t, log_ws_t, mus_t, log_sigs_t = self.distribution.get_p_params(
             input)
         raw_actions = x_t.detach().cpu().numpy()
-        actions = torch.tanh(raw_actions) if self._squash else raw_actions
+        actions = np.tanh(raw_actions) if self._squash else raw_actions
 
         return actions, (log_p_x_t, reg_loss_t, x_t, log_ws_t, mus_t, log_sigs_t)
 
@@ -66,7 +67,7 @@ class GMMSkillPolicy(Policy, torch.nn.Module):
         if not self._squash:
             return 0
         else:
-            return torch.sum(torch.log(1-torch.tanh(actions) ** 2 + EPS), dim=1)
+            return np.sum(np.log(1-np.tanh(actions) ** 2 + EPS), axis=1)
 
     @property
     def parameters(self, recurse=True):
