@@ -5,7 +5,7 @@ from garage.torch.policies.policy import Policy
 
 EPS = 1e-6
 
-class GMMPolicy(Policy):
+class GMMPolicy(Policy, torch.nn.Module):
     def __init__(self, env_spec, K=2, hidden_layer_sizes=(256, 256),
                  reg=1e-3, squash=True, reparameterize=False, qf=None,
                  name="GaussianMixtureModel"):
@@ -50,7 +50,7 @@ class GMMPolicy(Policy):
         else:
             return torch.sum(torch.log(1-torch.tanh(actions) ** 2 + EPS), dim=1)
 
-    def parameters(self):
+    def parameters(self, recurse=False):
         return self.distribution.parameters()
 
 
