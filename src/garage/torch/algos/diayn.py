@@ -196,11 +196,13 @@ class DIAYN(SAC):
         states = samples_data['state']
         skills = samples_data['skill_onehot']
         if isinstance(self._policy, GMMSkillPolicy):
-            log_p_x_t, reg_loss_t, x_t, log_ws_t, xz_mus_t, xz_log_sigs_t = params_new_actions
+            log_p_x_t = params_new_actions['log_p_x_t']
+            reg_loss_t = params_new_actions['reg_loss_t']
+            x_t = params_new_actions['x_t']
             min_q_new_actions = torch.min(
                 self._qf1(states, new_actions, skills),
                 self._qf2(states, new_actions, skills))
-            corr = torch.sum(torch.log(1- x_t ** 2 + EPS))
+            corr = torch.sum(torch.log(1.0 - torch.tanh(x_t) ** 2 + EPS))
             scaled_log_pi = self._scale_entropy * (log_p_x_t - corr)
             kl_surrogate_loss = torch.mean(log_p_x_t *
                                            (scaled_log_pi - min_q_new_actions))

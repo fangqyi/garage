@@ -58,7 +58,9 @@ class GMMSkillPolicy(Policy, torch.nn.Module):
         raw_actions = x_t.detach().cpu().numpy()
         actions = np.tanh(raw_actions) if self._squash else raw_actions
 
-        return actions, (log_p_x_t, reg_loss_t, x_t, log_ws_t, mus_t, log_sigs_t)
+        return actions, dict(log_p_x_t=log_p_x_t, reg_loss_t=reg_loss_t,
+                             x_t=x_t, log_ws_t=log_ws_t, mus_t=mus_t,
+                             log_sigs_t=log_sigs_t)
 
     def get_actions(self, observations, skills):
         return self.forward(observations, skills)
