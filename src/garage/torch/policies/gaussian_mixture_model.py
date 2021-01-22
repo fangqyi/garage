@@ -70,11 +70,11 @@ class GMMSkillPolicy(Policy, torch.nn.Module):
 
     @property
     def parameters(self, recurse=True):
-        return self.distribution.parameters()
+        return self.distribution.parameters
 
     @property
     def networks(self):
-        return self.distribution.networks 
+        return self.distribution.networks
 
     def reset(self):
         pass

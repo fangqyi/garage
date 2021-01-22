@@ -91,7 +91,7 @@ class GMM():
 
     @property
     def parameters(self):
-        return self._w_and_mu_logsig_t.parameters() if self._use_mlp is True else None
+        return self._w_and_mu_logsig_t.parameters if self._use_mlp is True else None
 
     @property
     def networks(self):
