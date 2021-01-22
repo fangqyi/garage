@@ -11,7 +11,7 @@ from garage import SkillTrajectoryBatch
 from garage.misc import tensor_utils
 from garage.misc.tensor_utils import discount_cumsum
 from garage.torch.algos import SAC
-from garage.torch.policies.gaussian_mixture_model import GMMPolicy
+from garage.torch.policies.gaussian_mixture_model import GMMSkillPolicy
 
 EPS = 1e-6
 class DIAYN(SAC):
@@ -165,7 +165,7 @@ class DIAYN(SAC):
         qf2_loss.backward()
         self._qf2_optimizer.step()
 
-        if isinstance(self._policy, GMMPolicy):
+        if isinstance(self._policy, GMMSkillPolicy):
             input = torch.cat([states, skills], 1)
             actions, policy_params = self._policy(input)
             policy_loss = self._actor_objective(samples_data, actions, policy_params)
@@ -195,7 +195,7 @@ class DIAYN(SAC):
     def _actor_objective(self, samples_data, new_actions, params_new_actions):
         states = samples_data['state']
         skills = samples_data['skill_onehot']
-        if isinstance(self._policy, GMMPolicy):
+        if isinstance(self._policy, GMMSkillPolicy):
             log_p_x_t, reg_loss_t, x_t, log_ws_t, xz_mus_t, xz_log_sigs_t = params_new_actions
             min_q_new_actions = torch.min(
                 self._qf1(states, new_actions, skills),

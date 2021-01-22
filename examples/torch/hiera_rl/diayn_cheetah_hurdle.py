@@ -17,7 +17,7 @@ from garage.sampler.local_skill_sampler import LocalSkillSampler
 from garage.torch.algos import DIAYN
 from garage.torch.algos.discriminator import MLPDiscriminator
 from garage.torch.policies import TanhGaussianMLPSkillPolicy
-from garage.torch.policies.gaussian_mixture_model import GMMPolicy
+from garage.torch.policies.gaussian_mixture_model import GMMSkillPolicy
 from garage.torch.q_functions import ContinuousMLPSkillQFunction
 
 
@@ -39,7 +39,7 @@ def diayn_cheetah_hurdle(ctxt=None, seed=1):
     #     max_std=np.exp(2.),
     # )
 
-    policy = GMMPolicy(
+    policy = GMMSkillPolicy(
         env_spec=env.spec,
         K=skills_num,
         hidden_layer_sizes=[300, 300])
