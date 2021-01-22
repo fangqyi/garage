@@ -50,6 +50,9 @@ class GMMPolicy(Policy):
         else:
             return torch.sum(torch.log(1-torch.tanh(actions) ** 2 + EPS), dim=1)
 
+    def parameters(self):
+        return self.distribution.parameters()
+
 
 
 

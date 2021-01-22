@@ -87,6 +87,9 @@ class GMM():
 
         return log_p
 
+    def parameters(self):
+        return self._w_and_mu_logsig_t.parameters()
+
 
 
 
