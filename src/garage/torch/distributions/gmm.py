@@ -2,6 +2,7 @@ import torch
 import numpy as np
 
 from garage.torch.modules import MLPModule
+import garage.torch.utils as tu
 
 LOG_SIG_CAP_MAX = 2
 LOG_SIG_CAP_MIN = -20
@@ -43,7 +44,7 @@ class GMM():
     def get_p_params(self, input):
         log_ws_t, xz_mus_t, xz_log_sigs_t = self.get_p_xz_params(input)
         # (N x K), (N x K x Dx), (N x K x Dx)
-        N =  log_ws_t.shape[0]
+        N = log_ws_t.shape[0]
         xz_sigs_t = torch.exp(xz_log_sigs_t)
 
         # Sample the latent code
@@ -54,7 +55,7 @@ class GMM():
 
         # Choose mixture component corresponding to the latent
         print(z_t)
-        mask_t = torch.eye(self._K)[z_t[:, 0]]
+        mask_t = torch.eye(self._K)[z_t[:, 0]].to(tu.global_device())
         mask_t = mask_t.ge(1) # turn into boolean
         xz_mu_t = torch.masked_select(xz_mus_t, mask_t)
         xz_sig_t = torch.masked_select(xz_sigs_t, mask_t)
