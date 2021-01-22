@@ -61,8 +61,11 @@ class GMM():
         xz_sig_t = torch.masked_select(xz_sigs_t, mask_t)
 
         # Sample x
-        x_t = xz_mu_t + xz_sig_t * torch.normal(mean=torch.zeros((N, self._Dx)),
+        x_t = xz_mu_t + xz_sig_t * torch.normal(mean=torch.zeros((N, self._Dx)).to(tu.global_device()),
                                                 std=1.0)
+        print()
+        print(x_t)
+        print()
         if not self._reparameterize:
             x_t = x_t.detach().cpu().numpy()
 
