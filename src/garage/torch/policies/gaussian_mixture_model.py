@@ -38,7 +38,7 @@ class GMMSkillPolicy(Policy, torch.nn.Module):
     #    return self.get_actions(observation[None])[0]
 
     def get_action(self, observation, skill):
-        return self.get_actions(observation, skill)[0]
+        return self.get_actions(observation, skill)
 
     def forward(self, observations, skills):
         if not isinstance(observations, torch.Tensor):
