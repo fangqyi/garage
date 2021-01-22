@@ -47,6 +47,9 @@ class GMM():
         xz_sigs_t = torch.exp(xz_log_sigs_t)
 
         # Sample the latent code
+        print(log_ws_t)
+        print("that's log_ws_t")
+        print()
         z_t = torch.multinomial(log_ws_t, num_samples=1)  # N*1
 
         # Choose mixture component corresponding to the latent
