@@ -50,6 +50,7 @@ class GMM():
         z_t = torch.multinomial(log_ws_t, num_samples=1)  # N*1
 
         # Choose mixture component corresponding to the latent
+        print(z_t)
         mask_t = torch.eye(self._K)[z_t[:, 0]]
         mask_t = mask_t.ge(1) # turn into boolean
         xz_mu_t = torch.masked_select(xz_mus_t, mask_t)
