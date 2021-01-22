@@ -8,7 +8,7 @@ import garage.torch.utils as tu
 from garage import wrap_experiment
 from garage.envs import GarageEnv
 from garage.envs import normalize
-from garage.envs.hierachical_rl.multigoal import MultiGoalEnv
+from garage.envs.hierarchical_rl_rllab.multigoal import MultiGoalEnv
 from garage.experiment import deterministic, LocalRunner
 from garage.replay_buffer import PathBuffer
 from garage.sampler import SkillWorker
