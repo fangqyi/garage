@@ -89,7 +89,7 @@ class GMM():
         quadratic = -0.5 * torch.sum(normalized_dist_t ** 2, dim=-1)
 
         log_z = torch.sum(log_sig_t, dim=-1)
-        D_t = torch.tensor(mu_t.shape[-1], torch.float32)
+        D_t = torch.tensor(mu_t.shape[-1]*1.0)
         log_z += 0.5 * D_t * np.log(2 * np.pi)
 
         log_p = quadratic - log_z
