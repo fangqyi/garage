@@ -257,14 +257,14 @@ class DIAYN(SAC):
         discriminator_pred = self._discriminator(states)
         discriminator_target = samples_data['skill']
 
-        print(discriminator_pred.shape)
-        print(discriminator_pred.flatten().shape)
-        print()
-        print(discriminator_target.shape)
-        print(discriminator_target.flatten().shape)
-        print()
+        # print(discriminator_pred.shape)
+        # print(discriminator_pred.flatten().shape)
+        # print()
+        # print(discriminator_target.shape)
+        # print(discriminator_target.flatten().shape)
+        # print()
 
-        discriminator_loss = torch.mean(F.cross_entropy(discriminator_pred.flatten(),
+        discriminator_loss = torch.mean(F.cross_entropy(discriminator_pred,
                                         discriminator_target.flatten()))
 
         return discriminator_loss

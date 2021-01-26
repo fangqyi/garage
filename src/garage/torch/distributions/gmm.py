@@ -52,7 +52,7 @@ class GMM():
 
         # Choose mixture component corresponding to the latent
         mask_t = torch.eye(self._K)[z_t[:, 0]].to(tu.global_device())
-        mask_t = mask_t.ge(1) # turn into boolean
+        mask_t = mask_t.ge(1)  # turn into boolean
         xz_mu_t = torch.masked_select(xz_mus_t, mask_t)
         xz_sig_t = torch.masked_select(xz_sigs_t, mask_t)
 
