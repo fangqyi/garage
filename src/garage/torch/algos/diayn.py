@@ -255,18 +255,9 @@ class DIAYN(SAC):
         states = samples_data['next_state']
 
         discriminator_pred = self._discriminator(states)
-        discriminator_target = torch.tensor(samples_data['skill'], dtype=torch.long,
-                                            device=tu.global_device())
-
-        #print(discriminator_pred.shape)
-        #print(discriminator_pred.flatten().shape)
-        #print(discriminator_pred)
-        #print()
-
-        #print(discriminator_target.shape)
-        #print(discriminator_target.flatten().shape)
-        #print(discriminator_target.flatten())
-        #print()
+        discriminator_target = (
+            samples_data['skill'].type(torch.cuda.FloatTensor).requires_grad_(
+                True)).to(tu.global_device())
 
         discriminator_loss = torch.mean(F.cross_entropy(discriminator_pred,
                                         discriminator_target.flatten()))
